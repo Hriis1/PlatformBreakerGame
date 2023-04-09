@@ -10,3 +10,8 @@ void Ball::draw(Graphics& gfx) const
 {
 	SpriteCodex::DrawBall(_pos, gfx);
 }
+
+void Ball::update(float deltaTime)
+{
+	_pos += _vel * deltaTime;
+}

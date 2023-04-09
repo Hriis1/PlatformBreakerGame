@@ -24,7 +24,8 @@
 Game::Game( MainWindow& wnd )
 	:
 	wnd( wnd ),
-	gfx( wnd )
+	gfx( wnd ),
+	_ball(Vec2(100,100), Vec2(50,30))
 {
 }
 
@@ -38,8 +39,11 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
+	float deltaTime = _ft.Mark();
+	_ball.update(deltaTime);
 }
 
 void Game::ComposeFrame()
 {
+	_ball.draw(gfx);
 }

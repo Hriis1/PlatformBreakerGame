@@ -8,6 +8,7 @@ public:
 	Ball(const Vec2& pos, const Vec2& vel);
 
 	void draw(Graphics& gfx) const;
+	void update(float deltaTime);
 
 private:
 	static constexpr float radius = 7.0f;
