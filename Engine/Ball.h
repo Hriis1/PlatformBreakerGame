@@ -10,6 +10,13 @@ public:
 	void draw(Graphics& gfx) const;
 	void update(float deltaTime);
 
+	bool collideWithWalls(const RectF& walls);
+	void ReboundX();
+	void ReboundY();
+
+	//getters
+	RectF getRect() const { return RectF::fromCenter(_pos, radius, radius); }
+
 private:
 	static constexpr float radius = 7.0f;
 	Vec2 _pos;

@@ -25,7 +25,7 @@ Game::Game( MainWindow& wnd )
 	:
 	wnd( wnd ),
 	gfx( wnd ),
-	_ball(Vec2(100,100), Vec2(50,30))
+	_walls(0, float(Graphics::ScreenWidth), 0, float(Graphics::ScreenHeight)),_ball(Vec2(100,100), Vec2(100,100))
 {
 }
 
@@ -41,6 +41,7 @@ void Game::UpdateModel()
 {
 	float deltaTime = _ft.Mark();
 	_ball.update(deltaTime);
+	_ball.collideWithWalls(_walls);
 }
 
 void Game::ComposeFrame()

@@ -47,5 +47,6 @@ private:
 	/********************************/
 	FrameTimer _ft;
 
+	RectF _walls;
 	Ball _ball;
 };
