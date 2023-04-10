@@ -19,7 +19,11 @@ void Paddle::update(const Keyboard& kbd, float deltaTime)
 
 void Paddle::draw(Graphics& gfx) const
 {
-	gfx.DrawRect(getRect(), _color);
+	RectF rect = getRect();
+	gfx.DrawRect(rect, _wingColor);
+	rect.left += _wingWidth;
+	rect.right -= _wingWidth;
+	gfx.DrawRect(rect, _color);
 }
 
 void Paddle::doWallCollision(const RectF& walls)

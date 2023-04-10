@@ -21,6 +21,9 @@ public:
 	//getters
 	RectF getRect() const { return RectF::fromCenter(_pos, _halfWidth, _halfHeight); }
 private:
+	static constexpr float _wingWidth = 10.0f;
+	Color _wingColor = Colors::Red;
+
 	Color _color = Colors::White;
 	float _halfWidth = 0.0f;
 	float _halfHeight = 0.0f;
