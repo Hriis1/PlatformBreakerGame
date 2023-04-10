@@ -24,9 +24,9 @@ public:
 
 private:
 	static constexpr float radius = 7.0f;
-	static constexpr float _veloctyChangeRange = 150.0f;
-	static constexpr float _minXVel = -500.0f;
-	static constexpr float _maxXVel = 500.0f;
+	static constexpr float _veloctyChangeRange = 300.0f;
+	static constexpr float _minXVel = 150.0f;
+	static constexpr float _maxXVel = 600.0f;
 
 	Vec2 _pos;
 	Vec2 _vel;

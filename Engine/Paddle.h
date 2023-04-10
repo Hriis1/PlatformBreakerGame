@@ -28,7 +28,7 @@ private:
 	Color _color = Colors::White;
 	float _halfWidth = 0.0f;
 	float _halfHeight = 0.0f;
-	float _speed = 300.0f;
+	float _speed = 400.0f;
 	Vec2 _pos;
 
 	bool _collisionCooldown = false;

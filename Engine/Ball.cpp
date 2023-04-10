@@ -66,6 +66,13 @@ void Ball::changeXVelocityOnPaddleHit()
 
 	if (_vel.x > _maxXVel)
 		_vel.x = _maxXVel;
-	else if (_vel.x < _minXVel)
-		_vel.x = _minXVel;
+	else if (_vel.x < -_maxXVel)
+		_vel.x = -_maxXVel;
+	else if (_vel.x >= -_minXVel && _vel.x <= _minXVel)
+	{
+		if(_vel.x >=0)
+			_vel.x = -_minXVel;
+		else
+			_vel.x = _minXVel;
+	}
 }
