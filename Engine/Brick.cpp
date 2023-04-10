@@ -8,7 +8,7 @@ Brick::Brick(const RectF& rect, Color col)
 void Brick::Draw(Graphics& gfx) const
 {
 	if(!_isDestroyed)
-		gfx.DrawRect(_rect, _col);
+		gfx.DrawRect(_rect.getExpanded(-_padding), _col);
 }
 
 bool Brick::doBallCollision(Ball& ball)
