@@ -16,8 +16,9 @@ public:
 	void draw(Graphics& gfx) const;
 
 	void doWallCollision(const RectF& walls);
-	bool doBallCollision(Ball& ball) const;
+	bool doBallCollision(Ball& ball);
 	
+	void resetCoolDown() { _collisionCooldown = false; }
 	//getters
 	RectF getRect() const { return RectF::fromCenter(_pos, _halfWidth, _halfHeight); }
 private:
@@ -29,5 +30,7 @@ private:
 	float _halfHeight = 0.0f;
 	float _speed = 300.0f;
 	Vec2 _pos;
+
+	bool _collisionCooldown = false;
 };
 

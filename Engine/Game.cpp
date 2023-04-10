@@ -45,20 +45,29 @@ Game::Game(MainWindow& wnd)
 
 void Game::Go()
 {
-	gfx.BeginFrame();	
-	UpdateModel();
+	gfx.BeginFrame();
+	float elapsedTime = _ft.Mark();
+	while (elapsedTime > 0)
+	{
+		const float deltaTime = std::min(0.0025f, elapsedTime);
+		UpdateModel(deltaTime);
+		elapsedTime -= deltaTime;
+	}
 	ComposeFrame();
 	gfx.EndFrame();
 }
 
-void Game::UpdateModel()
+void Game::UpdateModel(float deltaTime)
 {
-	float deltaTime = _ft.Mark();
+	
 	_paddle.update(wnd.kbd, deltaTime);
 	_paddle.doWallCollision(_walls);
 
 	_ball.update(deltaTime);
-	_ball.collideWithWalls(_walls);
+	if (_ball.collideWithWalls(_walls))
+	{
+		_paddle.resetCoolDown();
+	}
 	if (_paddle.doBallCollision(_ball))
 	{
 		_soundPad.Play();
@@ -83,6 +92,7 @@ void Game::UpdateModel()
 	}
 	if (collisionHappened)
 	{
+		_paddle.resetCoolDown();
 		_bricks[bestColIdx].executeBallCollision(_ball);
 		_soundBrick.Play();
 	}

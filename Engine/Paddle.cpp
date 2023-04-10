@@ -1,4 +1,5 @@
 #include "Paddle.h"
+#include <cmath>
 
 Paddle::Paddle(const Vec2& pos, float halfWidth, float halfHeight)
 	: _pos(pos), _halfWidth(halfWidth), _halfHeight(halfHeight)
@@ -39,12 +40,32 @@ void Paddle::doWallCollision(const RectF& walls)
 	}
 }
 
-bool Paddle::doBallCollision(Ball& ball) const
+bool Paddle::doBallCollision(Ball& ball)
 {
-	if (ball.getVelocity().y >= 0.0f) {
-		if (getRect().isOverlappingWith(ball.getRect()))
+	if (!_collisionCooldown)
+	{
+		const RectF paddleRect = getRect();
+		if (paddleRect.isOverlappingWith(ball.getRect()))
 		{
-			ball.ReboundY();
+			const Vec2 ballPos = ball.getPosition();
+
+			//the ball is coming from inside of the brick
+			if (std::signbit(ball.getVelocity().x) == std::signbit(ballPos.x - _pos.x))
+			{
+				ball.ReboundY();
+			}
+			else //the ball is coming from outside the brick
+			{
+				if (ballPos.x >= paddleRect.left && ballPos.x <= paddleRect.right)
+				{
+					ball.ReboundY();
+				}
+				else
+				{
+					ball.ReboundX();
+				}
+			}
+			_collisionCooldown = true;
 			return true;
 		}
 	}
