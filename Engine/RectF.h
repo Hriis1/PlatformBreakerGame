@@ -12,6 +12,9 @@ public:
 
 	static RectF fromCenter(const Vec2& center, float halfWidth, float halfHeight);
 	RectF getExpanded(float offset) const;
+
+	//getters
+	Vec2 getCenter() const { return Vec2((left + right)/2.0f, (top + bot)/2.0f); }
 public:
 	float left = 0.0f;
 	float right = 0.0f;

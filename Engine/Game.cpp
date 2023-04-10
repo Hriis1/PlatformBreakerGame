@@ -26,10 +26,10 @@ Game::Game(MainWindow& wnd)
 	wnd(wnd),
 	gfx(wnd),
 	_soundPad(L"Sounds\\arkpad.wav"), _soundBrick(L"Sounds\\arkbrick.wav"),
-	_walls(0, float(Graphics::ScreenWidth), 0, float(Graphics::ScreenHeight)), _ball(Vec2(200.0f, 350.0f), Vec2(150.0f, 150.0f)),
+	_walls(0, float(Graphics::ScreenWidth), 0, float(Graphics::ScreenHeight)), _ball(Vec2(200.0f, 350.0f), Vec2(250.0f, 250.0f)),
 	 _paddle(Vec2(400.0f, 500.0f), 65.0f, 7.0f)
 {
-	const Color colors[_nBricksVertically] = { Colors::White, Colors::Green, Colors::Red };
+	const Color colors[_nBricksVertically] = { Colors::White, Colors::Green, Colors::Red, Colors::Yellow, Colors::Cyan };
 	const Vec2 topLeft(0.0f, 50.0f);
 
 	int i = 0;
@@ -58,17 +58,33 @@ void Game::UpdateModel()
 	_paddle.doWallCollision(_walls);
 
 	_ball.update(deltaTime);
-	if (_ball.collideWithWalls(_walls) || _paddle.doBallCollision(_ball))
+	_ball.collideWithWalls(_walls);
+	if (_paddle.doBallCollision(_ball))
 	{
 		_soundPad.Play();
 	}
+
+	//Collide the ball with the bricks
+	bool collisionHappened = false;
+	float minBallBrickCollisionDistanceSq = 10000.0f;
+	int bestColIdx;
 	for (size_t i = 0; i < _nBricks; i++)
 	{
-		if (_bricks[i].doBallCollision(_ball))
+		if (_bricks[i].checkBallCollision(_ball))
 		{
-			_soundBrick.Play();
-			break;
+			collisionHappened = true;
+			const float currColDistanceSq = (_ball.getPosition() - _bricks[i].getCenter()).GetLengthSq();
+			if (minBallBrickCollisionDistanceSq > currColDistanceSq)
+			{
+				minBallBrickCollisionDistanceSq = currColDistanceSq;
+				bestColIdx = i;
+			}
 		}
+	}
+	if (collisionHappened)
+	{
+		_bricks[bestColIdx].executeBallCollision(_ball);
+		_soundBrick.Play();
 	}
 	
 }

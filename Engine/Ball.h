@@ -15,6 +15,7 @@ public:
 	void ReboundY();
 
 	//getters
+	const Vec2& getPosition() const { return _pos; }
 	const Vec2& getVelocity() const { return _vel; }
 	RectF getRect() const { return RectF::fromCenter(_pos, radius, radius); }
 

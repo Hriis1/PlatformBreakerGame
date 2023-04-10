@@ -13,7 +13,10 @@ public:
 
 	void Draw(Graphics& gfx) const;
 
-	bool doBallCollision(Ball& ball);
+	bool checkBallCollision(const Ball& ball) const;
+	void executeBallCollision(Ball& ball);
+
+	Vec2 getCenter() const { return _rect.getCenter(); }
 private:
 	static constexpr float _padding = 2.0f;
 
