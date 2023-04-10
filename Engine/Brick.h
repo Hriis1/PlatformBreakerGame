@@ -8,6 +8,7 @@
 class Brick
 {
 public:
+	Brick() = default;
 	Brick(const RectF& rect, Color col);
 
 	void Draw(Graphics& gfx) const;

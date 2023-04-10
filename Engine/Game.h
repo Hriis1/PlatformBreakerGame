@@ -48,12 +48,18 @@ private:
 	/********************************/
 	/*  User Variables              */
 	/********************************/
+	static constexpr float _brickWidth = 50.0f;
+	static constexpr float _brickHeight = 20.0f;
+	static constexpr int _nBricksHorizontally = 12;
+	static constexpr int _nBricksVertically = 3;
+	static constexpr int _nBricks = _nBricksHorizontally * _nBricksVertically;
+
 	FrameTimer _ft;
 	Sound _soundPad;
 	Sound _soundBrick;
 
 	RectF _walls;
 	Ball _ball;
-	Brick _brick;
+	Brick _bricks[_nBricks];
 	Paddle _paddle;
 };
