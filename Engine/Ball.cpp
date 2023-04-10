@@ -2,7 +2,7 @@
 #include "SpriteCodex.h"
 
 Ball::Ball(const Vec2& pos, const Vec2& vel)
-	: _pos(pos), _vel(vel)
+	: _pos(pos), _vel(vel), _velRng(std::random_device()()), _xVelDist(-_veloctyChangeRange, _veloctyChangeRange)
 {
 }
 
@@ -57,4 +57,15 @@ void Ball::ReboundX()
 void Ball::ReboundY()
 {
 	_vel.y = -_vel.y;
+}
+
+void Ball::changeXVelocityOnPaddleHit()
+{
+	float xVelChange = _xVelDist(_velRng);
+	_vel.x += xVelChange;
+
+	if (_vel.x > _maxXVel)
+		_vel.x = _maxXVel;
+	else if (_vel.x < _minXVel)
+		_vel.x = _minXVel;
 }

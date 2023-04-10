@@ -1,4 +1,6 @@
 #pragma once
+#include <random>
+
 #include "Graphics.h"
 #include "Vec2.h"
 #include "RectF.h"
@@ -13,6 +15,7 @@ public:
 	bool collideWithWalls(const RectF& walls);
 	void ReboundX();
 	void ReboundY();
+	void changeXVelocityOnPaddleHit();
 
 	//getters
 	const Vec2& getPosition() const { return _pos; }
@@ -21,8 +24,14 @@ public:
 
 private:
 	static constexpr float radius = 7.0f;
+	static constexpr float _veloctyChangeRange = 150.0f;
+	static constexpr float _minXVel = -500.0f;
+	static constexpr float _maxXVel = 500.0f;
+
 	Vec2 _pos;
 	Vec2 _vel;
 	
+	std::mt19937 _velRng;
+	std::uniform_real_distribution<float> _xVelDist;
 };
 

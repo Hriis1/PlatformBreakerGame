@@ -53,12 +53,14 @@ bool Paddle::doBallCollision(Ball& ball)
 			if (std::signbit(ball.getVelocity().x) == std::signbit(ballPos.x - _pos.x))
 			{
 				ball.ReboundY();
+				ball.changeXVelocityOnPaddleHit();
 			}
 			else //the ball is coming from outside the brick
 			{
 				if (ballPos.x >= paddleRect.left && ballPos.x <= paddleRect.right)
 				{
 					ball.ReboundY();
+					ball.changeXVelocityOnPaddleHit();
 				}
 				else
 				{
